@@ -6,12 +6,20 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+
 import javax.sql.DataSource;
 
 @Configuration
+@EnableJpaRepositories(
+        entityManagerFactoryRef = "entityManagerFactoryB",
+        basePackages = "com.example.jpamultipledatasource.dao.b",
+        transactionManagerRef = "transactionManagerB"
+)
 public class DataSourceBConfig {
 
     @Bean
@@ -21,17 +29,14 @@ public class DataSourceBConfig {
     }
 
     @Bean
-    public EntityManagerFactory entityManagerFactoryB(EntityManagerFactoryBuilder builder) {
-        return builder.dataSource(dataSourceB()).build().getObject();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryB(EntityManagerFactoryBuilder builder) {
+        return builder.dataSource(dataSourceB())
+                .packages("com.example.jpamultipledatasource.model.b")
+                .build();
     }
 
     @Bean
-    public EntityManager entityManagerB(EntityManagerFactory entityManagerFactory) {
-        return entityManagerFactory.createEntityManager();
+    public PlatformTransactionManager transactionManagerB(EntityManagerFactoryBuilder builder) {
+        return new JpaTransactionManager(entityManagerFactoryB(builder).getObject());
     }
-
-//    @Bean
-//    public DataSourceTransactionManager transactionManagerB() {
-//        return new DataSourceTransactionManager(dataSourceB());
-//    }
 }

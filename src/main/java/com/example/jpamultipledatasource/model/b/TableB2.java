@@ -1,11 +1,11 @@
-package com.example.jpamultipledatasource.model;
+package com.example.jpamultipledatasource.model.b;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "table_b2")
 public class TableB2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

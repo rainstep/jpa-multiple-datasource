@@ -1,13 +1,13 @@
 package com.example.jpamultipledatasource;
 
-import com.example.jpamultipledatasource.dao.TableA1Dao;
-import com.example.jpamultipledatasource.dao.TableA2Dao;
-import com.example.jpamultipledatasource.dao.TableB1Dao;
-import com.example.jpamultipledatasource.dao.TableB2Dao;
-import com.example.jpamultipledatasource.model.TableA1;
-import com.example.jpamultipledatasource.model.TableA2;
-import com.example.jpamultipledatasource.model.TableB1;
-import com.example.jpamultipledatasource.model.TableB2;
+import com.example.jpamultipledatasource.dao.a.TableA1Dao;
+import com.example.jpamultipledatasource.dao.a.TableA2Dao;
+import com.example.jpamultipledatasource.dao.b.TableB1Dao;
+import com.example.jpamultipledatasource.dao.b.TableB2Dao;
+import com.example.jpamultipledatasource.model.a.TableA1;
+import com.example.jpamultipledatasource.model.a.TableA2;
+import com.example.jpamultipledatasource.model.b.TableB1;
+import com.example.jpamultipledatasource.model.b.TableB2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,16 +49,16 @@ public class BaseService {
         tableB2Dao.save(tableB2);
     }
 
-    @Transactional
+    @Transactional("transactionManagerA")
     public void saveA(String nameA1, String nameA2) {
         this.addA1(nameA1);
         this.addA2(nameA2);
     }
 
-    @Transactional
+    @Transactional("transactionManagerB")
     public void saveB(String nameB1, String nameB2) {
         this.addB1(nameB1);
-        this.addB1(nameB2);
+        this.addB2(nameB2);
     }
 
     @Transactional
