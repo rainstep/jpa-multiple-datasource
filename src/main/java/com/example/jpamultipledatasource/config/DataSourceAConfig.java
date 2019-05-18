@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -41,7 +40,7 @@ public class DataSourceAConfig {
 
     @Primary
     @Bean
-    public PlatformTransactionManager transactionManagerA(EntityManagerFactoryBuilder builder) {
+    public JpaTransactionManager transactionManagerA(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryA(builder).getObject());
     }
 
