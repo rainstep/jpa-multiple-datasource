@@ -10,4 +10,5 @@ spring:
     jdbc-url: jdbc:mysql://127.0.0.1:3306/db_b?useSSL=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
-
+server:
+  port: 9999

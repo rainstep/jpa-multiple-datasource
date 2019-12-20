@@ -16,9 +16,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "entityManagerFactoryA",
-        basePackages = "com.example.jpamultipledatasource.dao.a",
-        transactionManagerRef = "transactionManagerA"
+        entityManagerFactoryRef = "entityManagerFactoryA"
+        , basePackages = "com.example.jpamultipledatasource.dao.a"
+        , transactionManagerRef = "transactionManagerA"
 )
 public class DataSourceAConfig {
 
